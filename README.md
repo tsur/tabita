@@ -1,11 +1,11 @@
+<div>
+       <img src="tabita.png?raw=true" width="150" height="250" style="float:left;"/>
+       ## What's Tabita ?
 
-<img src="tabita.png?raw=true" width="150" height="250" align="left"/>
+       > Tabita is an incredibly fast, canvas based table implementation for big data and realtime analytics. It performs great at high data volumes, rendering about 100,000 rows at around ~1ms.
+</div>
 
-## What's Tabita ?
-
-> Tabita is an incredibly fast, canvas based table implementation for big data and realtime analytics. It performs great at high data volumes, rendering about 100,000 rows at around ~1ms.
-
-## Download
+### Download
 
 ```
 npm install tabita
