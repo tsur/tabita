@@ -62,6 +62,13 @@ function createState(){
 	this.scrollBarOffset = 0;
 	this.lastScrollBarOffset = 0;
 	this.scrollActived = false;
+	this.state = {};
+
+	for(let i=0; i<this.visibleRows*this.totalColumns; i++){
+
+		this.state[i] = {clicked: false, hover: false};
+
+	}
 
 	CELL_WIDTH = Math.ceil(Math.abs(this.width/this.totalColumns));
 
@@ -161,7 +168,7 @@ function paintHeaders(canvasCtx, headers, meta, width){
 
 }
 
-function paintBody(canvasCtx, data, headers, totalColumns, rowCursor, visibleRows, meta){
+function paintBody(canvasCtx, data, headers, totalColumns, rowCursor, visibleRows, meta, state){
 
 	// console.log(R.range(rowCursor, (rowCursor + visibleRows - 1)*totalColumns));
 
@@ -177,6 +184,10 @@ function paintBody(canvasCtx, data, headers, totalColumns, rowCursor, visibleRow
 			const y = getY(i, totalColumns)
 
 			if(row % 2 != 0) paintCell(canvasCtx, x, y, meta[header].width, "#f9f9f9");
+			else paintCell(canvasCtx, x, y, meta[header].width, "transparent");
+
+			if(state[i+totalColumns] && state[i+totalColumns].hover) paintCell(canvasCtx, x, y, meta[header].width, "#edeaea");
+			if(state[i+totalColumns] && state[i+totalColumns].clicked) paintCell(canvasCtx, x, y, meta[header].width, "#bbb");
 
 			paintText(canvasCtx, data[row+rowCursor][header], x, y);
 
@@ -246,14 +257,16 @@ function getNativeCoordenates(canvas, evt) {
 
 }
 
-function getCellCoordenates(canvas, evt) {
+function getCellCoordenates(canvas, evt, rows, columns) {
 
 	const coords = getNativeCoordenates(canvas, evt);
 
-	return {
-		x: Math.floor(coords.x/CELL_WIDTH),
-		y: Math.floor(coords.y/CELL_HEIGHT)
-	};
+	const x = Math.floor(coords.x/CELL_WIDTH);
+	const y = Math.floor(coords.y/CELL_HEIGHT);
+
+	const coord = (x%rows)+(y*columns);
+
+	return coord >= 0 ? coord : 0;
 
 };
 
@@ -283,9 +296,16 @@ function addEventListeners(){
 
 		}
 
+		const i = getCellCoordenates(this.canvasElement, event, this.visibleRows, this.headers.length);
+		//
+		// if(this.state[i] && this.state[i].clicked) this.state[i] = {clicked: false};
+		// else this.state[i] = {clicked: true};
 
+		this.state[i].clicked = !this.state[i].clicked;
 
-		highlightCell(this.canvasCtx, getCellCoordenates(this.canvasElement, event), this.headers, this.meta);
+		this.paint();
+
+		// highlightCell(this.canvasCtx, getCellCoordenates(this.canvasElement, event), this.headers, this.meta);
 
 	  return false;
 
@@ -294,7 +314,23 @@ function addEventListeners(){
 	const mousemoveHandler = event => {
 
 		if(!this.enableScroll){
-				return;
+
+			const i = getCellCoordenates(this.canvasElement, event, this.visibleRows, this.headers.length);
+
+			if(!this.state[i].hover){
+
+				for(let k=0; k<this.visibleRows*this.totalColumns; k++){
+
+					this.state[k].hover = false;
+
+				}
+
+				this.state[i].hover = true;
+
+				return this.paint();
+			}
+
+			return;
 		};
 
 		const coords = getNativeCoordenates(this.canvasElement, event);
@@ -328,6 +364,13 @@ function addEventListeners(){
 	const mouseoutHandler = event => {
 
 		// this.enableScroll = false;
+		for(let k=0; k<this.visibleRows*this.totalColumns; k++){
+
+			this.state[k].hover = false;
+
+		}
+
+		this.paint();
 
 	}
 	const mouseenterHandler = event => {
@@ -447,7 +490,7 @@ Table.prototype.paint = function() {
 
 	paintHeaders(this.canvasCtx, this.headers, this.meta, this.width);
 
-	paintBody(this.canvasCtx, this.data, this.headers, this.totalColumns, this.rowCursor, this.visibleRows, this.meta);
+	paintBody(this.canvasCtx, this.data, this.headers, this.totalColumns, this.rowCursor, this.visibleRows, this.meta, this.state);
 
 	if(this.data.length >= this.visibleRows) {
 

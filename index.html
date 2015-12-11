@@ -140,25 +140,30 @@
     });
 
     var total_rows = 100000;
-    var fruits = ["cuvieri", "dorcas", "subgutturosa", "bennettii", "gazella", "leptoceros", "spekei", "erlangeri", "albonotata", "rufifrons", "thomsoni", "dama", "granti", "soemmerringii"];
+    var gazelles = ["gazelle cuvieri", "gazelle dorcas", "gazelle subgutturosa",
+    "gazelle bennettii", "gazelle gazella", "gazelle leptoceros",
+    "gazelle spekei", "gazelle erlangeri", "gazelle albonotata",
+    "gazelle rufifrons", "gazelle thomsoni", "gazelle dama",
+    "gazelle granti", "gazelle soemmerringii"];
+    var amount = [2500, 3000, 1778, 1302, 4500, 3200, 1400, 2700, 4444, 2900, 1599, 3405, 950, 600];
     var n = 5;
 
     var random = function(i){
 
-      var r = Math.floor(Math.random()*(fruits.length-1));
+      var r = Math.floor(Math.random()*(gazelles.length-1));
 
       n++;
 
-      return {number: i ? i : n, species: fruits[r], amount: r*10000};
+      return {number: i ? i : n, species: gazelles[r], amount: amount[r]+Math.floor(Math.random()*500)};
 
     }
 
     chart.render([
-      { number: 5, species: "cuvieri", amount: 25000 },
-      { number: 4, species: "dorcas", amount: 40000 },
-      { number: 3, species: "subgutturosa", amount: 35000 },
-      { number: 2, species: "bennettii", amount: 60000 },
-      { number: 1, species: "leptoceros", amount: 70000 }
+      { number: 5, species: "cuvieri", amount: 2500 },
+      { number: 4, species: "dorcas", amount: 4000 },
+      { number: 3, species: "subgutturosa", amount: 3500 },
+      { number: 2, species: "bennettii", amount: 3000 },
+      { number: 1, species: "leptoceros", amount: 1500 }
     ]);
 
 
