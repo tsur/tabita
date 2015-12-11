@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <script type="text/javascript">
+  window.onload = function () {
+    var chart = new Tabita.Table("chartContainer", {
+
+      title:{
+        text: "Fruits sold in First Quarter"
+      },
+
+      headers: {
+        n: "int",
+        label: "string",
+        y: "int"
+      }
+
+    });
+
+    var fruits = ["banana", "orange", "apple", "mango", "grape"];
+    var total_rows = 100000;
+    var n = 0;
+
+    var random = function(){
+
+      var r = Math.floor(Math.random()*(fruits.length-1));
+
+      n++;
+
+      // console.log(n);
+
+      return {n: n, label: fruits[r], y: r};
+
+    }
+
+    var data = [];
+
+    for(var i = 0; i < total_rows; i++){
+
+      data.push(random());
+    }
+
+    console.time('rendering ' + total_rows);
+    chart.render(data);
+    console.timeEnd('rendering ' + total_rows);
+
+  }
+  </script>
+  <script type="text/javascript" src="../dist/tabita.js"></script>
+</head>
+<body>
+  <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>
