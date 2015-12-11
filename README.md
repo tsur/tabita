@@ -3,7 +3,7 @@
 
 ## What's Tabita ?
 
-> Tabita is an incredibly fast, canvas based table implementation for big data and realtime analytics. It performs great at high data volumes, rendering about 100,000 rows at ~1ms. Check our demo [here](http://tsur.github.io/tabita/)
+> Tabita is an incredibly fast, canvas based table implementation for big data and realtime analytics. It performs great at high data volumes, rendering about 100,000 rows at ~1ms. Demo [here](http://tsur.github.io/tabita/).
 
     - [x] Compatible with all major browsers supporting canvas element
     - [ ] Pagination, search and sorting features built-in
