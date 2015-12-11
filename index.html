@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <style>
+
+  body {
+
+    background-color: #bbb;
+
+  }
+
+  .header{
+
+    text-align: center;
+    margin:auto;
+  }
+
+  .header img {
+
+    width: 150px;
+    height: 250px;
+
+  }
+  .header p, .header span, .header strong {
+
+    font-size: 17px;
+    font-family: 'Inconsolata', sans-serifs;
+    color: #4c4b4b;
+
+  }
+
+  .header span {
+
+    margin-right: 15px;
+    border-bottom: 1px dotted #4c4b4b;
+    cursor: pointer;
+
+  }
+
+  .header strong {
+
+    font-size: 15px;
+    color: black;
+
+  }
+
+  .header span:hover {
+
+    color: #f4f4f4;
+
+  }
+
+  .table {
+
+    border: 1px solid black;
+    background-color: white;
+    width: 80%;
+    margin: auto;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 15px;
+  }
+
+  </style>
+  <script type="text/javascript">
+  window.onload = function () {
+
+    document.querySelector(".pause").addEventListener("click", function(event){
+
+        if(!interval) return;
+
+        clearInterval(interval);
+
+        interval = null;
+
+    });
+
+    document.querySelector(".start").addEventListener("click", function(event){
+
+      if(interval) return;
+
+      interval = setInterval(function(){
+
+        chart.render([random()]);
+
+      }, 100);
+
+    });
+
+    document.querySelector(".bump").addEventListener("click", function(event){
+
+      if(interval){
+
+        clearInterval(interval);
+
+        interval = null;
+
+      }
+
+      n = 0;
+
+      var data = [];
+
+      var i = total_rows;
+
+      while(i > 0){
+
+        data.push(random(i));
+
+        i--
+      }
+
+      if(chart) {
+
+        var now = new Date().getTime();
+
+        chart.render(data, true);
+
+        var time = new Date().getTime() - now;
+
+        document.querySelector('.bump-time').textContent = '(took '+ (time < 1 ? 'less than 1' : '~' + time) + 'ms)';
+
+      }
+
+    });
+
+    var chart = new Tabita.Table("chartContainer", {
+
+      title:{
+        text: "endangered Gazelle species"
+      },
+
+      headers: {
+        number: "int",
+        species: "string",
+        amount: "int"
+      }
+
+    });
+
+    var total_rows = 100000;
+    var fruits = ["cuvieri", "dorcas", "subgutturosa", "bennettii", "gazella", "leptoceros", "spekei", "erlangeri", "albonotata", "rufifrons", "thomsoni", "dama", "granti", "soemmerringii"];
+    var n = 5;
+
+    var random = function(i){
+
+      var r = Math.floor(Math.random()*(fruits.length-1));
+
+      n++;
+
+      return {number: i ? i : n, species: fruits[r], amount: r*10000};
+
+    }
+
+    chart.render([
+      { number: 5, species: "cuvieri", amount: 25000 },
+      { number: 4, species: "dorcas", amount: 40000 },
+      { number: 3, species: "subgutturosa", amount: 35000 },
+      { number: 2, species: "bennettii", amount: 60000 },
+      { number: 1, species: "leptoceros", amount: 70000 }
+    ]);
+
+
+    var interval = setInterval(function(){
+
+      chart.render([random()]);
+
+    }, 100);
+
+  }
+  </script>
+  <script type="text/javascript" src="dist/tabita.js"></script>
+</head>
+<body>
+
+  <div class="header">
+    <img src="tabita.png?raw=true"/>
+    <p>
+      <strong>Tabita</strong> is an incredibly fast, canvas based table implementation for big data and realtime analytics.
+    </p>
+  </div>
+  <div class="table">
+
+    <div id="chartContainer" style="height: 300px;"></div>
+
+  </div>
+  <div class="header">
+    <span class="pause">Pause</span>
+    <span class="start">Start</span>
+    <span class="bump">Bump 100,000 rows</span>
+    <p><strong class="bump-time"></strong></p>
+  </div>
+
+</body>
+</html>

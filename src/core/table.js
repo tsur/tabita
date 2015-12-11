@@ -430,11 +430,10 @@ function Table(containerId, options) {
 }
 
 //Update Chart Properties
-Table.prototype.render = function(data) {
+Table.prototype.render = function(data, boot) {
 
 	// const entries = R.isArrayLike(data) ? R.flatten(R.map(event => R.values(event), data)) : R.values(data);
-
-	if(data) this.data = data.concat(this.data);
+	if(data) this.data = boot ? data : data.concat(this.data);
 
 	this.paint();
 

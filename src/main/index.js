@@ -5,7 +5,7 @@ export function Table(containerId, options) {
 
   const _table = new TableChart(containerId, options);
 
-  this.render = data =>  _table.render(data);
+  this.render = (data, boot) =>  _table.render(data, boot);
 
   this.options = _table.options;
 };
