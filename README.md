@@ -3,7 +3,7 @@
 
 ## What's Tabita ?
 
-> Tabita is an incredibly fast, canvas based table implementation for big data and realtime analytics
+> Tabita is an incredibly fast, canvas based table implementation for big data and realtime analytics. It performs great at high data volumes, rendering about 100,000 rows at around ~1ms.
 
 ## Download
 
@@ -11,7 +11,7 @@
 npm install tabita
 ```
 
-## Getting Started
+### Getting Started
 
 First of all, you need to import it. This can be achieved in different ways depending up on what module definition pattern your application is using.
 
@@ -51,7 +51,7 @@ Then you can access the global variable `Tabita`.
 
 ** Note: dist folder also contains a minified version located at dist/tabita.min.js and ready for production.
 
-## Build
+### Build
 
 ```
 npm run build
