@@ -1,5 +1,5 @@
 
-[![Tabita](tabita.png?raw=true "Tabita"]
+![Tabita](tabita.png?raw=true)
 
 > Tabita is an incredibly fast, canvas based table implementation for big data and realtime analytics
 
