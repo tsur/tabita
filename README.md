@@ -1,8 +1,9 @@
 
-![Tabita](tabita.png?raw=true)
+<img src="tabita.png?raw=true" width="150" height="250" align="left"/>
+
+## What's Tabita ?
 
 > Tabita is an incredibly fast, canvas based table implementation for big data and realtime analytics
-
 
 ## Download
 
