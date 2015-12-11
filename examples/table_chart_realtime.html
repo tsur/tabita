@@ -6,18 +6,18 @@
     var chart = new Tabita.Table("chartContainer", {
 
       title:{
-        text: "Fruits sold in First Quarter"
+        text: "endangered Gazelle species"
       },
 
       headers: {
-        n: "int",
-        label: "string",
-        y: "int"
+        number: "int",
+        species: "string",
+        amount: "int"
       }
 
     });
 
-    var fruits = ["banana", "orange", "apple", "mango", "grape"];
+    var fruits = ["cuvieri", "dorcas", "subgutturosa", "bennettii", "gazella", "leptoceros", "spekei", "erlangeri", "albonotata", "rufifrons", "thomsoni", "dama", "granti", "soemmerringii"];
     var n = 5;
 
     var random = function(){
@@ -26,25 +26,23 @@
 
       n++;
 
-      // console.log(n);
-
-      return {n: n, label: fruits[r], y: r};
+      return {number: n, species: fruits[r], amount: r*10000};
 
     }
 
     chart.render([
-      { n: 5, label: "banana", y: 18 },
-      { n: 4, label: "orange", y: 29 },
-      { n: 3, label: "apple", y: 40 },
-      { n: 2, label: "mango", y: 34 },
-      { n: 1, label: "grape", y: 24 }
+      { number: 5, species: "cuvieri", amount: 25000 },
+      { number: 4, species: "dorcas", amount: 40000 },
+      { number: 3, species: "subgutturosa", amount: 35000 },
+      { number: 2, species: "bennettii", amount: 60000 },
+      { number: 1, species: "leptoceros", amount: 70000 }
     ]);
 
     setInterval(function(){
 
       chart.render([random()]);
 
-    }, 1000);
+    }, 100);
 
   }
   </script>
