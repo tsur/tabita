@@ -70,9 +70,7 @@
 
         if(!interval) return;
 
-        clearInterval(interval);
-
-        interval = null;
+        interval = false;
 
     });
 
@@ -80,23 +78,15 @@
 
       if(interval) return;
 
-      interval = setInterval(function(){
+      interval = true;
 
-        chart.render([random()]);
-
-      }, 100);
+      runTimer();
 
     });
 
     document.querySelector(".bump").addEventListener("click", function(event){
 
-      if(interval){
-
-        clearInterval(interval);
-
-        interval = null;
-
-      }
+      //if(interval) interval = false;
 
       n = 0;
 
@@ -166,12 +156,25 @@
       { number: 1, species: "leptoceros", amount: 1500 }
     ]);
 
+    interval = true;
 
-    var interval = setInterval(function(){
+    function runTimer(){
 
       chart.render([random()]);
 
-    }, 100);
+      if(interval){
+
+        setTimeout(function(){
+
+          runTimer();
+
+        }, 100);
+
+      }
+
+    }
+
+    runTimer();
 
   }
   </script>
